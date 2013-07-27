@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 import sys, os, time, atexit
-from signal import SIGTERM 
+from signal import SIGINT 
 
 class Daemon:
 	"""
@@ -104,7 +104,7 @@ class Daemon:
 		# Try killing the daemon process	
 		try:
 			while 1:
-				os.kill(pid, SIGTERM)
+				os.kill(pid, SIGINT)
 				time.sleep(0.1)
 		except OSError, err:
 			err = str(err)
