@@ -74,6 +74,10 @@ else:
             memory = int(pipe.read())
             pipe.close()
         memory *= 1024
+
+        if not os.path.isdir("/dev/disk/by-id/"):
+            return '::%s' % (memory)
+
         hdd = ''
         hdd_cmd = "ls -l /dev/disk/by-id/ | grep -w 'sd%s\\|hd%s' | awk '{print $8}'"
         alphabet = 'abcdefghijklmnopqrstuvwxyz'
