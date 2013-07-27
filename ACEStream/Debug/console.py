@@ -21,6 +21,9 @@ class SafePrintStream:
     def flush(self):
         self._stream.flush()
 
+    def fileno(self):       
+        return self._stream.fileno()
+
 
 class SafeLinePrintStream:
 
