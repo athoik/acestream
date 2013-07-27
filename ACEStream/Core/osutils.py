@@ -82,6 +82,9 @@ if sys.platform == 'win32':
 else:
 
     def get_home_dir():
+        for mount in [u'/media/hdd',u'/media/usb']:
+            if os.path.ismount(mount):
+                 return mount
         return os.path.expanduser(u'~')
 
 
