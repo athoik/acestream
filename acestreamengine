@@ -1,0 +1,32 @@
+#!/usr/bin/python
+
+""" ACEStream Deamon """
+
+import os
+import sys
+
+from daemon import Daemon
+from ACEStream.Plugin.EngineConsole import start
+
+class ACEStreamDaemon(Daemon):
+    def run(self):
+        curdir = os.path.abspath(os.path.dirname(sys.argv[0]))
+        apptype = "acestream"
+        start(apptype, curdir)
+
+if __name__ == "__main__":
+    daemon = ACEStreamDaemon("/var/run/acestream.pid")
+    if len(sys.argv) == 2:
+        if "start" == sys.argv[1]:
+            daemon.start()
+        elif "stop" == sys.argv[1]:
+            daemon.stop()
+        elif "restart" == sys.argv[1]:
+            daemon.restart()
+        else:
+            print "Unknown command"
+            sys.exit(2)
+        sys.exit(0)
+    else:
+        print "usage: %s start|stop|restart" % sys.argv[0]
+        sys.exit(2)
